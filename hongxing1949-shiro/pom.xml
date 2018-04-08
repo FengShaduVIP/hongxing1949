@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>com.hongxing1949</groupId>
+		<artifactId>Hongxing1949</artifactId>
+		<version>${hongxing1949-version}</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>hongxing1949-shiro</artifactId>
+	<packaging>jar</packaging>
+    <description>权限模块</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hongxing1949</groupId>
+			<artifactId>hongxing1949-common</artifactId>
+			<version>${hongxing1949-version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

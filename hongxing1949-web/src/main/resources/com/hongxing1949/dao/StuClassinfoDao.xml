@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hongxing1949.dao.StuClassinfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hongxing1949.entity.StuClassinfoEntity" id="stuClassinfoMap">
+        <result property="id" column="id"/>
+        <result property="className" column="class_name"/>
+        <result property="classNo" column="class_no"/>
+        <result property="year" column="year"/>
+        <result property="techId" column="tech_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.hongxing1949.entity.StuClassinfoEntity">
+		select * from stu_classinfo where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.hongxing1949.entity.StuClassinfoEntity">
+		select * from stu_classinfo
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from stu_classinfo 
+	</select>
+	 
+	<insert id="save" parameterType="com.hongxing1949.entity.StuClassinfoEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into stu_classinfo
+		(
+			`class_name`, 
+			`class_no`, 
+			`year`, 
+			`tech_id`
+		)
+		values
+		(
+			#{className}, 
+			#{classNo}, 
+			#{year}, 
+			#{techId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hongxing1949.entity.StuClassinfoEntity">
+		update stu_classinfo 
+		<set>
+			<if test="className != null">`class_name` = #{className}, </if>
+			<if test="classNo != null">`class_no` = #{classNo}, </if>
+			<if test="year != null">`year` = #{year}, </if>
+			<if test="techId != null">`tech_id` = #{techId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from stu_classinfo where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from stu_classinfo where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
