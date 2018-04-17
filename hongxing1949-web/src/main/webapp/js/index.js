@@ -1,3 +1,4 @@
+/*
 layui.config({
   base:'js/'
 }).use(['navtab'],function(){
@@ -56,8 +57,9 @@ layui.config({
 	    }).trigger("click");
 	});
 });
+*/
 
-
+/*
 layui.use(['jquery','layer','element'],function(){
 	window.jQuery = window.$ = layui.jquery;
 	window.layer = layui.layer;
@@ -88,36 +90,33 @@ layui.use(['jquery','layer','element'],function(){
 	      });
 	  }
 	});
-});
+});*/
 
-
-
-//生成菜单
 var menuItem = Vue.extend({
-	name: 'menu-item',
-	props:{item:{}},
-	template:[
-	          '<li class="layui-nav-item">',
-	          '<a v-if="item.type === 0" href="javascript:;">',
-	          '<i v-if="item.icon != null" :class="item.icon"></i>',
-	          '<span>{{item.name}}</span>',
-	          '<em class="layui-nav-more"></em>',
-	          '</a>',
-	          '<dl v-if="item.type === 0" class="layui-nav-child">',
-	          '<dd v-for="item in item.list">',
-	          '<a v-if="item.type === 1" href="javascript:;" :data-url="item.url"><i v-if="item.icon != null" :class="item.icon" :data-icon="item.icon"></i> <span>{{item.name}}</span></a>',
-	          '</dd>',
-	          '</dl>',
-	          '<a v-if="item.type === 1" href="javascript:;" :data-url="item.url"><i v-if="item.icon != null" :class="item.icon" :data-icon="item.icon"></i> <span>{{item.name}}</span></a>',
-	          '</li>'
-	].join('')
+    name: 'menu-item',
+    props:{item:{}},
+    template:[
+        '<li>',
+			'<a v-if="item.type === 0" href="javascript:;">',
+				'<i v-if="item.icon != null" :class="item.icon"></i>',
+				'<span class="nav-label">{{item.name}}</span>',
+				'<span class="fa arrow"></span>',
+			'</a>',
+			'<ul class="nav nav-second-level">',
+        		'<li v-for="item in item.list">',
+					'<a class="menuItem" v-if="item.type === 1" href="javascript:;" :data-url="item.url" >{{item.name}}</a>',
+				'</li>',
+			'</ul>',
+			'<a class="menuItem" v-if="item.type === 1" href="javascript:;" :data-url="item.url"><i v-if="item.icon != null" :class="item.icon" :data-icon="item.icon"></i> <span>{{item.name}}</span></a>',
+        '</li>'
+    ].join('')
 });
 
 //注册菜单组件
 Vue.component('menuItem',menuItem);
 
 var vm = new Vue({
-	el:'#layui_layout',
+	el:'#wrapper',
 	data:{
 		user:{},
 		menuList:{},
